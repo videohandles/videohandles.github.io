@@ -1,324 +1,673 @@
-<!-- BEGIN: results_template.html -->
 <!DOCTYPE html>
 <html>
 
 <head>
-	<title>VideoHandles Results</title>
+	<meta charset="utf-8">
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-VM1F8D1M7K"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-VM1F8D1M7K');
+	</script>
+
+	<meta name="description"
+		content="text-driven parametric image editing that matches the latents encoded in the posterior of a diffusion model’s forward process.">
+	<meta name="keywords" content="Diffusion models, Score Distillation Sampling, Parametric image editing">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>VideoHandles: Editing 3D Object Compositions in Videos Using Video Generative Priors</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+	<!--<script src="https://kit.fontawesome.com/099be36846.js" crossorigin="anonymous"></script>-->
+	<link rel="stylesheet" href="./static/css/bulma.min.css">
+	<link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+	<link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+	<link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+	<link rel="stylesheet" href="./static/css/index.css">
+	<link rel="icon" href="./static/images/favicon.svg">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script defer src="./static/js/fontawesome.all.min.js"></script>
+	<script src="./static/js/bulma-carousel.min.js"></script>
+	<script src="./static/js/bulma-slider.min.js"></script>
+	<script src="./static/js/index.js"></script>
+	<style>
+		figure {
+			border: none;
+			padding: 4px;
+			margin: auto;
+		}
+
+		figcaption {
+			background-color: none;
+			color: black;
+			font-size: 20px;
+			padding: 2px;
+			text-align: center;
+		}
+
+		.column_input_image {
+			float: left;
+			width: auto;
+			padding: 5px;
+		}
+
+		.column_image {
+			float: left;
+			width: 20%;
+			padding: 5px;
+		}
+
+		.btn-primary {
+			display: block;
+			text-align: center;
+			padding: 12px 20px 12px 20px;
+			margin-right: auto;
+			margin-left: auto;
+			background-color: rgb(91, 128, 200);
+			width: fit-content;
+			border-radius: 5%;
+			color: #ffffff;
+			font-size: large;
+			font-weight: bold;
+		}
+
+		.pds-btn {
+			display: block;
+			text-align: center;
+			padding: 12px 20px 12px 20px;
+			margin-right: auto;
+			margin-left: auto;
+			background-color: #ffffff;
+			width: fit-content;
+			border-radius: 7.5%;
+			color: #851676;
+			font-size: large;
+			font-weight: bold;
+			border: none;
+			transition-duration: 0.4s;
+			cursor: pointer;
+		}
+
+		.pds-btn:hover {
+			display: block;
+			text-align: center;
+			padding: 12px 20px 12px 20px;
+			margin-right: auto;
+			margin-left: auto;
+			background-color: #851676;
+			width: fit-content;
+			border-radius: 7.5%;
+			color: #ffffff;
+			font-size: large;
+			font-weight: bold;
+			border: none;
+			transition-duration: 0.4s;
+			cursor: pointer;
+		}
+
+		.pds-btn_active {
+			display: block;
+			text-align: center;
+			padding: 12px 20px 12px 20px;
+			margin-right: auto;
+			margin-left: auto;
+			background-color: #851676;
+			width: fit-content;
+			border-radius: 7.5%;
+			color: #ffffff;
+			font-size: large;
+			font-weight: bold;
+			border: none;
+			transition-duration: 0.4s;
+			cursor: pointer;
+		}
+
+		.baseline-btn {
+			display: block;
+			text-align: center;
+			padding: 12px 20px 12px 20px;
+			margin-right: auto;
+			margin-left: auto;
+			background-color: #ffffff;
+			width: fit-content;
+			border-radius: 7.5%;
+			color: rgb(112, 148, 221);
+			font-size: large;
+			font-weight: bold;
+			border: none;
+			transition-duration: 0.4s;
+			cursor: pointer;
+		}
+
+		.baseline-btn:hover {
+			display: block;
+			text-align: center;
+			padding: 12px 20px 12px 20px;
+			margin-right: auto;
+			margin-left: auto;
+			background-color: rgb(112, 148, 221);
+			width: fit-content;
+			border-radius: 7.5%;
+			color: #ffffff;
+			font-size: large;
+			font-weight: bold;
+			border: none;
+			transition-duration: 0.4s;
+			cursor: pointer;
+		}
+
+		.baseline-btn_active {
+			display: block;
+			text-align: center;
+			padding: 12px 20px 12px 20px;
+			margin-right: auto;
+			margin-left: auto;
+			background-color: rgb(112, 148, 221);
+			width: fit-content;
+			border-radius: 7.5%;
+			color: #ffffff;
+			font-size: large;
+			font-weight: bold;
+			border: none;
+			transition-duration: 0.4s;
+			cursor: pointer;
+		}
+
+		/* The switch - the box around the slider */
+		.switch {
+			position: relative;
+			display: inline-block;
+			width: 60px;
+			height: 34px;
+		}
+
+		/* Hide default HTML checkbox */
+		.switch input {
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+
+		/* The slider */
+		.slider {
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #ccc;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+
+		.slider:before {
+			position: absolute;
+			content: "";
+			height: 26px;
+			width: 26px;
+			left: 4px;
+			bottom: 4px;
+			background-color: white;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+
+		input:checked+.slider {
+			background-color: #2196F3;
+		}
+
+		input:focus+.slider {
+			box-shadow: 0 0 1px #2196F3;
+		}
+
+		input:checked+.slider:before {
+			-webkit-transform: translateX(26px);
+			-ms-transform: translateX(26px);
+			transform: translateX(26px);
+		}
+
+		/* Rounded sliders */
+		.slider.round {
+			border-radius: 34px;
+		}
+
+		.slider.round:before {
+			border-radius: 50%;
+		}
+
+		.toggle-btn {
+			display: block;
+			text-align: center;
+			padding: 12px 20px 12px 20px;
+			margin-right: 4px;
+			margin-left: 4px;
+			background-color: #ffffff;
+			width: fit-content;
+			border-radius: 7.5%;
+			color: rgb(112, 148, 221);
+			font-size: large;
+			font-weight: bold;
+			border: none;
+			transition-duration: 0.4s;
+			cursor: pointer;
+		}
+
+		.toggle-btn:hover {
+			display: block;
+			text-align: center;
+			padding: 12px 20px 12px 20px;
+			margin-right: 4px;
+			margin-left: 4px;
+			background-color: rgb(112, 148, 221);
+			width: fit-content;
+			border-radius: 7.5%;
+			color: #ffffff;
+			font-size: large;
+			font-weight: bold;
+			border: none;
+			transition-duration: 0.4s;
+			cursor: pointer;
+		}
+
+		.toggle-btn_active {
+			display: block;
+			text-align: center;
+			padding: 12px 20px 12px 20px;
+			margin-right: 4px;
+			margin-left: 4px;
+			background-color: rgb(112, 148, 221);
+			width: fit-content;
+			border-radius: 7.5%;
+			color: #ffffff;
+			font-size: large;
+			font-weight: bold;
+			border: none;
+			cursor: pointer;
+		}
+
+		.vertical_legend {
+			transform: rotate(270deg);
+			white-space: nowrap;
+			text-align: center;
+			display: flex;
+			justify-content: center;
+			width: 0px;
+			font-size: 1.25rem;
+			font-weight: bold;
+		}
+
+		.video-container {
+			display: flex;
+			flex-wrap: wrap;
+			/* Allows videos to wrap if they exceed width */
+			justify-content: center;
+			/* Centers videos */
+			gap: 10px;
+			/* Adds space between videos */
+		}
+
+		.video-container img {
+			width: 30%;
+			max-width: 320px;
+			height: auto;
+		}
+
+		.video-container-two {
+			display: flex;
+			flex-wrap: wrap;
+			/* Allows videos to wrap if they exceed width */
+			justify-content: center;
+			/* Centers videos */
+			gap: 10px;
+			margin-bottom: 5px;
+		}
+
+		.video-container-two img {
+			width: 48%;
+			max-width: 320px;
+			height: auto;
+		}
+
+		.tldr {
+			text-align: center;
+			justify-content: center;
+			font-size: 1.rem;
+		}
+
+	</style>
 </head>
-<style>
-	table {
-		table-layout: fixed;
-		/* width:100%; */
-	}
-
-	img {
-		max-height: 100%;
-		max-width: 100%;
-	}
-
-	thead th {
-		top: 0;
-		position: sticky;
-		z-index: 20;
-		background-color: white;
-	}
-
-	td {
-		text-align: center;
-	}
-
-	h1 {
-		padding-top: 20px
-	}
-
-	.button {
-		display: inline-block;
-		padding: 10px 20px;
-		font-size: 16px;
-		cursor: pointer;
-		text-align: center;
-		text-decoration: none;
-		color: #fff;
-		background-color: #007BFF;
-		border: none;
-		border-radius: 5px;
-		margin: 10px;
-	}
-
-	.button:hover {
-		background-color: #0056b3;
-	}
-</style>
 
 <body>
-	<!-- Button to go to Webpage 1 in dir1/ -->
-	<h1>VideoHandles Editing Results</h1>
-	<a href="./baseline_comparison/index.html" class="button">Go to Baseline Comparison</a>
-	<a href="./ablation_comparison/index.html" class="button">Go to Ablation Study</a>
-	<h2>Editing Real (Captured) Videos</h2>
-	<table>
-		<thead>
-			<tr>
-
-				<th>Input</th>
-
-				<th>our result</th>
-
-			</tr>
-		</thead>
-		<tbody>
-
-			<tr>
-
-				<td><img src="result_webpage/apple/Input.gif"></td>
-
-				<td><img src="result_webpage/apple/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/armchair/Input.gif"></td>
-
-				<td><img src="result_webpage/armchair/our_result.gif"></td>
-
-			</tr>
-
-		</tbody>
-	</table>
-
-	<h2>Editing Generated Videos</h2>
-	<table>
-		<thead>
-			<tr>
-
-				<th>Input</th>
-
-				<th>our result</th>
-
-			</tr>
-		</thead>
-		<tbody>
-
-			<tr>
-
-				<td><img src="result_webpage/0/Input.gif"></td>
-
-				<td><img src="result_webpage/0/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/1/Input.gif"></td>
-
-				<td><img src="result_webpage/1/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/2/Input.gif"></td>
-
-				<td><img src="result_webpage/2/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/3/Input.gif"></td>
-
-				<td><img src="result_webpage/3/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/4/Input.gif"></td>
-
-				<td><img src="result_webpage/4/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/6/Input.gif"></td>
-
-				<td><img src="result_webpage/6/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/7/Input.gif"></td>
-
-				<td><img src="result_webpage/7/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/8/Input.gif"></td>
-
-				<td><img src="result_webpage/8/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/9/Input.gif"></td>
-
-				<td><img src="result_webpage/9/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/10/Input.gif"></td>
-
-				<td><img src="result_webpage/10/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/12/Input.gif"></td>
-
-				<td><img src="result_webpage/12/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/13/Input.gif"></td>
-
-				<td><img src="result_webpage/13/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/14/Input.gif"></td>
-
-				<td><img src="result_webpage/14/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/16/Input.gif"></td>
-
-				<td><img src="result_webpage/16/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/18/Input.gif"></td>
-
-				<td><img src="result_webpage/18/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/19/Input.gif"></td>
-
-				<td><img src="result_webpage/19/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/21/Input.gif"></td>
-
-				<td><img src="result_webpage/21/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/24/Input.gif"></td>
-
-				<td><img src="result_webpage/24/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/26/Input.gif"></td>
-
-				<td><img src="result_webpage/26/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/27/Input.gif"></td>
-
-				<td><img src="result_webpage/27/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/28/Input.gif"></td>
-
-				<td><img src="result_webpage/28/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/29/Input.gif"></td>
-
-				<td><img src="result_webpage/29/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/31/Input.gif"></td>
-
-				<td><img src="result_webpage/31/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/32/Input.gif"></td>
-
-				<td><img src="result_webpage/32/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/33/Input.gif"></td>
-
-				<td><img src="result_webpage/33/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/34/Input.gif"></td>
-
-				<td><img src="result_webpage/34/our_result.gif"></td>
-
-			</tr>
-
-			<tr>
-
-				<td><img src="result_webpage/38/Input.gif"></td>
-
-				<td><img src="result_webpage/38/our_result.gif"></td>
-
-			</tr>
-
-		</tbody>
-	</table>
+	<section class="hero">
+		<div class="hero-body" style="padding-bottom: 5px;">
+			<div class="container is-max-desktop">
+				<div class="columns is-centered">
+					<div class="column has-text-centered">
+						<h1 class="title is-1 publication-title">VideoHandles: Editing 3D Object Compositions in Videos Using Video
+							Generative Priors</h1>
+						<div class="is-size-5 publication-authors">
+							<span class="author-block">CVPR 2025</span>
+						</div>
+
+						<div class="is-size-5 publication-authors">
+							<span class="author-block">
+								<a href="https://63days.github.io">Juil Koo</a><sup>1,2</sup>&nbsp;&nbsp;&nbsp;&nbsp;<a
+									href="https://paulguerrero.net/">Paul Guerrero</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;<a
+									href="https://paulchhuang.wixsite.com/chhuang">Chun-Hao P.
+									Huang</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.duygu-ceylan.com/">Duygu
+									Ceylan</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://mhsung.github.io/">Minhyuk
+									Sung</a><sup>1</sup></span>
+						</div>
+						<div class="is-size-5 publication-authors">
+							<span class="author-block"><sup>1</sup>KAIST&nbsp;&nbsp;&nbsp;&nbsp;<sup>2</sup>Adobe Research</span>
+						</div>
+
+						<div class="column has-text-centered">
+							<div class="publication-links">
+								<span class="link-block">
+									<a href="static/assets/videohandles.pdf" target="_blank"
+										class="external-link button is-normal is-rounded is-dark">
+										<span class="icon">
+											<i class="fas fa-file-pdf"></i>
+										</span>
+										<span>PDF</span>
+									</a>
+									<!--<a href="https://arxiv.org/abs/2311.13831" target="_blank" class="external-link button is-normal is-rounded is-dark">-->
+									<!--  <span class="icon">-->
+									<!--    <i class="ai ai-arxiv"></i>-->
+									<!--  </span>-->
+									<!--  <span id="arxiv-link">arXiv</span>-->
+									<!--</a>-->
+								</span>
+								<span class="link-block">
+									<a class="external-link button is-normal is-rounded is-dark">
+										<span class="icon">
+											<i class="fab fa-github"></i>
+										</span>
+										<span id="code-link">Code</span>
+									</a>
+								</span>
+								<span class="link-block">
+									<btn class="button is-normal is-rounded is-dark">
+										<!--<span class="icon">-->
+										<!--  <i class="file-icon"></i>-->
+										<!--</span>-->
+										<span class="file-icon">
+											<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+												<!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+												<style>
+													svg {
+														fill: #ffffff
+													}
+
+												</style>
+												<path
+													d="M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16l140.1 0L400 115.9V320c0 8.8-7.2 16-16 16zM192 384H384c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H256c35.3 0 64-28.7 64-64V416H272v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16H96V128H64z" />
+											</svg>
+										</span>
+										<span id="bibtex-link">Bibtex</span>
+									</btn>
+								</span>
+							</div>
+						</div>
+						<div class="tldr is-centered has-text-centered">
+							<strong>TL;DR:</strong> <em><b>VideoHandles</b></em> is the first training-free method for context-aware
+							<strong>3D object composition editing</strong> in videos, plausibly updating effects like reflections
+							(e.g., a wine glass’s
+							new position) and disocclusions (e.g., revealing a lamp behind a book pile).
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--<section class="section" style="margin-top: 0px;">-->
+		<div class="container is-max-desktop">
+			<!-- TEASER -->
+			<div class="hero-body" style="padding-top: 25px;">
+				<!-- Title Row-->
+				<div
+					style="display: flex; justify-content: center; width: 100%; text-align: center; font-size: 1.25rem; font-weight: bold;">
+					Context-Aware 3D Edits in Videos
+				</div>
+				<div class="column" style="display: flex; align-items: center; padding-bottom: 0px;">
+					<div class="vertical_legend">Input Video</div>
+					<div class="video-container">
+						<img id="teaser_1_input" src="./static/data/high_res/2/input.gif" loading="lazy" alt="Input." />
+						<img id="teaser_2_input" src="./static/data/high_res/10/input.gif" loading="lazy" alt="Input." />
+						<img id="teaser_3_input" src="./static/data/real_video_armchair/input.gif" loading="lazy" alt="Input." />
+					</div>
+				</div>
+				<div class="column" style="display: flex; align-items: center; padding-top: 0px;">
+					<div class="vertical_legend">Edited Video</div>
+					<div class="video-container">
+						<img id="teaser_1_ours" src="./static/data/high_res/2/ours.gif" loading="lazy" alt="Ours." />
+						<img id="teaser_2_ours" src="./static/data/high_res/10/ours.gif" loading="lazy" alt="Ours." />
+						<img id="teaser_3_ours" src="./static/data/real_video_armchair/ours.gif" loading="lazy" alt="Ours." />
+					</div>
+				</div>
+				<div style="display: flex; justify-content: center; width: 100%; text-align: center; font-size: 1rem;">
+					Solid axes represnt the original 3D position, dotted axes the user-provided target position.
+				</div>
+
+			</div>
+
+	</section>
+
+	<section class="hero">
+		<div class="hero-body">
+			<div class="container is-max-desktop">
+				<div class="columns is-centered">
+					<div class="column has-text-centered">
+						<h2 class="title is-3">Overview</h2>
+						<img id="overview_figure" src="./static/figures//overview.png" loading="lazy" alt="overview" />
+						<div style=" justify-content: center; width: 100%; text-align: center; font-size: 1rem;">
+							Through 3D reconstruction from the source video, we introduce a 3D-aware warping function to ensure frame-consistent transformations. This function warps the intermediate features of a video generative model, guiding the generative process to position the object at the target position, while also maintaining the plausibility of effects like shadows and reflections.
+						</div>
+					</div>
+				</div>
+			</div>
+	</section>
+
+
+	<section class="hero">
+		<div class="hero-body">
+			<div class="container is-max-desktop">
+				<div class="columns is-centered">
+					<div class="column has-text-centered">
+						<h2 class="title is-3">More Results</h2>
+						<!--- CogVideo Results--->
+						<h2 class="title is-4">VideoHandles with <a href=https://arxiv.org/abs/2408.06072
+								target="_blank">CogVideoX</a>
+						</h2>
+						<!-- Label Row (Ensures Alignment) -->
+						<div class="video-labels"
+							style="display: flex; justify-content: space-between; width: 100%; max-width: 600px; margin: 0 auto; gap: 10px;">
+							<span style="width: 50%; text-align: center; font-size: 1.2rem; font-weight: bold;">Input</span>
+							<span style="width: 50%; text-align: center; font-size: 1.2rem; font-weight: bold;">Output</span>
+						</div>
+
+						<div class="video-container-two" style="space-between; width: 100%;">
+							<img id="teaser_2_ours" src="./static/data/cogvideo_vase/input.gif" loading="lazy" alt="Ours." />
+							<img id="teaser_2_ours" src="./static/data/cogvideo_vase/ours.gif" loading="lazy" alt="Ours." />
+						</div>
+
+						<div class="video-container-two" style="space-between; width: 100%;">
+							<img id="teaser_2_ours" src="./static/data/cogvideo_chair/input.gif" loading="lazy" alt="Ours." />
+							<img id="teaser_2_ours" src="./static/data/cogvideo_chair/ours.gif" loading="lazy" alt="Ours." />
+						</div>
+						<div style=" justify-content: center; width: 100%; text-align: center; font-size: 1rem;">
+							VideoHandles is independent of the choice of video generative models. Applying VideoHandles to a more recent advanced video generative model, <a href=https://arxiv.org/abs/2408.06072 target="_blank">CogVideoX</a>, produces much sharper and more detailed outputs.
+						</div>
+
+
+						<h2 class="title is-4" style="padding-top: 40px;">Long and Stylized Video Editing</h2>
+						<div class="video-labels"
+							style="display: flex; justify-content: space-between; width: 100%; max-width: 600px; margin: 0 auto; gap: 10px;">
+							<span style="width: 50%; text-align: center; font-size: 1.2rem; font-weight: bold;">Input</span>
+							<span style="width: 50%; text-align: center; font-size: 1.2rem; font-weight: bold;">Output</span>
+						</div>
+
+
+						<div class="video-container-two" style="space-between; width: 100%;">
+							<img id="teaser_2_ours" src="./static/data/lamp_anime/input.gif" loading="lazy" alt="Ours." />
+							<img id="teaser_2_ours" src="./static/data/lamp_anime/ours.gif" loading="lazy" alt="Ours." />
+						</div>
+						<div class="video-container-two" style="space-between; width: 100%;">
+							<img id="teaser_2_ours" src="./static/data/bench_anime/input.gif" loading="lazy" alt="Ours." />
+							<img id="teaser_2_ours" src="./static/data/bench_anime/ours.gif" loading="lazy" alt="Ours." />
+						</div>
+						Our method can be also applied to long (102-frame) and stylized videos, e.g. personalized videos with LoRA.
+
+
+						<!--- Real Video Results--->
+						<h2 class="title is-4" style="padding-top: 40px;">Real-World Video Editing</h2>
+						<!-- Label Row (Ensures Alignment) -->
+						<div class="video-labels"
+							style="display: flex; justify-content: space-between; width: 100%; max-width: 600px; margin: 0 auto; gap: 10px;">
+							<span style="width: 50%; text-align: center; font-size: 1.2rem; font-weight: bold;">Input</span>
+							<span style="width: 50%; text-align: center; font-size: 1.2rem; font-weight: bold;">Output</span>
+						</div>
+
+						<div class="video-container-two" style="space-between; width: 100%;">
+							<img id="teaser_2_ours" src="./static/data/real_video_apple/input.gif" loading="lazy" alt="Ours." />
+							<img id="teaser_2_ours" src="./static/data/real_video_apple/ours.gif" loading="lazy" alt="Ours." />
+						</div>
+
+						<div class="video-container-two" style="space-between; width: 100%;">
+							<img id="teaser_2_ours" src="./static/data/real_video_armchair/input.gif" loading="lazy" alt="Ours." />
+							<img id="teaser_2_ours" src="./static/data/real_video_armchair/ours.gif" loading="lazy" alt="Ours." />
+						</div>
+
+						<div class="video-container-two" style="space-between; width: 100%;">
+							<img id="teaser_2_ours" src="./static/data/real_video_cup/input.gif" loading="lazy" alt="Ours." />
+							<img id="teaser_2_ours" src="./static/data/real_video_cup/ours.gif" loading="lazy" alt="Ours." />
+						</div>
+
+						<!--<div class="video-container-two" style="space-between; width: 100%;">-->
+						<!--  <img id="teaser_2_ours" src="./static/data/0/input.gif" loading="lazy" alt="Ours." />-->
+						<!--  <img id="teaser_2_ours" src="./static/data/0/ours.gif" loading="lazy" alt="Ours." />-->
+						<!--</div>-->
+						<!--<div class="video-container-two" style="space-between; width: 100%;">-->
+						<!--  <img id="teaser_2_ours" src="./static/data/8/input.gif" loading="lazy" alt="Ours." />-->
+						<!--  <img id="teaser_2_ours" src="./static/data/8/ours.gif" loading="lazy" alt="Ours." />-->
+						<!--</div>-->
+						<!--<div class="video-container-two" style="space-between; width: 100%;">-->
+						<!--  <img id="teaser_2_ours" src="./static/data/18/input.gif" loading="lazy" alt="Ours." />-->
+						<!--  <img id="teaser_2_ours" src="./static/data/18/ours.gif" loading="lazy" alt="Ours." />-->
+						<!--</div>-->
+						<!--<div class="video-container-two" style="space-between; width: 100%;">-->
+						<!--  <img id="teaser_2_ours" src="./static/data/27/input.gif" loading="lazy" alt="Ours." />-->
+						<!--  <img id="teaser_2_ours" src="./static/data/27/ours.gif" loading="lazy" alt="Ours." />-->
+						<!--</div>-->
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Abstract. -->
+	<!--<div class="columns is-centered has-text-centered">-->
+	<!--  <div class="column is-four-fifths">-->
+	<!--    <h2 class="title is-3">Abstract</h2>-->
+	<!--    <div class="content has-text-justified">-->
+	<!--      <p>-->
+	<!--        Generative methods for image and video editing use generative models as priors to perform edits despite-->
+	<!--        incomplete information, such as changing the composition of 3D objects shown in a single image. Recent-->
+	<!--        methods have shown promising composition editing results in the image setting, but in the video setting,-->
+	<!--        editing methods have focused on editing object's appearance and motion, or camera motion, and as a result,-->
+	<!--        methods to edit object composition in videos are still missing. We propose \name as a method for editing-->
+	<!--        3D object compositions in videos of static scenes with camera motion. Our approach allows editing the 3D-->
+	<!--        position of a 3D object across all frames of a video in a temporally consistent manner. This is achieved-->
+	<!--        by lifting intermediate features of a generative model to a 3D reconstruction that is shared between all-->
+	<!--        frames, editing the reconstruction, and projecting the features on the edited reconstruction back to each-->
+	<!--        frame. To the best of our knowledge, this is the first generative approach to edit object compositions in-->
+	<!--        videos. Our approach is simple and training-free, while outperforming state-of-the-art image editing-->
+	<!--        baselines.-->
+	<!--      </p>-->
+	<!--    </div>-->
+	<!--  </div>-->
+	<!--</div>-->
+
+	<!-- <figure style="width: fit-content;"></figure> -->
+	<!--<section class="hero">-->
+	<!--  <div class="hero-body">-->
+	<!--    <div class="container is-max-desktop">-->
+	<!--      <div class="columns is-centered">-->
+	<!--        <div class="column has-text-centered">-->
+	<!--          <h2 class="title is-3">References</h2>	-->
+
+	<!--        </div>-->
+	<!--      </div>-->
+	<!--    </div>-->
+	<!--  </div>-->
+	<!--</section>-->
+
+
+	<section class="section" id="BibTeX">
+		<div class="container is-max-desktop content">
+			<h2 class="title">BibTeX</h2>
+			<pre><code id="bibcontent">@inproceedings{Koo:2025VideoHandles,
+  title     = {VideoHandles: Editing 3D Object Compositions in Videos Using Video Generative Priors},
+  author    = {Koo, Juil and Guerrero, Paul and Huang, Chun-Hao Paul and Ceylan, Duygu and Sung, Minhyuk},
+  booktitle = {CVPR},
+  year      = {2025}
+}</code></pre>
+		</div>
+	</section>
+
+	<script>
+		document.getElementById("bibtex-link").onclick = function (e) {
+			bibtxt = document.getElementById("bibcontent");
+			navigator.clipboard.writeText(bibtxt.textContent);
+
+			bibLink = e.srcElement;
+			bibLink.textContent = "✓ Copied";
+		};
+		document.getElementById("bibtex-link").onmouseover = function (e) {
+			bibLink = e.srcElement;
+			bibLink.textContent = "Copy";
+		};
+		document.getElementById("bibtex-link").onmouseout = function (e) {
+			bibLink = e.fromElement;
+			bibLink.textContent = "Bibtex";
+		};
+
+		document.getElementById("code-link").onmouseover = function (e) {
+			bibLink = e.srcElement;
+			bibLink.textContent = "Coming Soon";
+		};
+		document.getElementById("code-link").onmouseout = function (e) {
+			bibLink = e.fromElement;
+			bibLink.textContent = "Code";
+		};
+
+	</script>
+	<footer class="footer">
+		<div class="container">
+			<div class="columns is-centered">
+				<div class="column is-8">
+					<div class="content">
+						<p>
+							The website is based on <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>. We thank
+							Keunhong Park for kindly open-sourcing the source code.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
 </body>
 
 </html>
-<!-- END: results_template.html -->

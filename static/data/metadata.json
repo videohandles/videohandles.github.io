@@ -1,0 +1,110 @@
+[
+  {
+    "idx": 0,
+    "obj_name": "water bottle"
+  },
+  {
+    "idx": 1,
+    "obj_name": "water bottle"
+  },
+  {
+    "idx": 2,
+    "obj_name": "wine glass"
+  },
+  {
+    "idx": 3,
+    "obj_name": "lamp"
+  },
+  {
+    "idx": 4,
+    "obj_name": "banana"
+  },
+  {
+    "idx": 6,
+    "obj_name": "apple"
+  },
+  {
+    "idx": 7,
+    "obj_name": "ball"
+  },
+  {
+    "idx": 8,
+    "obj_name": "glass cup"
+  },
+  {
+    "idx": 9,
+    "obj_name": "red vase"
+  },
+  {
+    "idx": 10,
+    "obj_name": "a stack of books"
+  },
+  {
+    "idx": 12,
+    "obj_name": "globe"
+  },
+  {
+    "idx": 13,
+    "obj_name": "toy car"
+  },
+  {
+    "idx": 14,
+    "obj_name": "coffee cup"
+  },
+  {
+    "idx": 16,
+    "obj_name": "hat"
+  },
+  {
+    "idx": 18,
+    "obj_name": "laundry basket"
+  },
+  {
+    "idx": 19,
+    "obj_name": "glass bottle"
+  },
+  {
+    "idx": 21,
+    "obj_name": "soap container"
+  },
+  {
+    "idx": 24,
+    "obj_name": "lamp"
+  },
+  {
+    "idx": 26,
+    "obj_name": "a cup"
+  },
+  {
+    "idx": 27,
+    "obj_name": "candle"
+  },
+  {
+    "idx": 28,
+    "obj_name": "water bottle"
+  },
+  {
+    "idx": 29,
+    "obj_name": "chair"
+  },
+  {
+    "idx": 31,
+    "obj_name": "laundry basket"
+  },
+  {
+    "idx": 32,
+    "obj_name": "chair"
+  },
+  {
+    "idx": 33,
+    "obj_name": "bed"
+  },
+  {
+    "idx": 34,
+    "obj_name": "chair"
+  },
+  {
+    "idx": 38,
+    "obj_name": "ball"
+  }
+]
